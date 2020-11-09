@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Home from './Components/Home';
+import Login from './Components/Login';
+import Results from './Components/Results';
+import Update from './Components/Update';
+import {
+  BrowserRouter,
+  Switch,
+  Route
+} from "react-router-dom";
+ 
 
-function App() {
+class App extends React.Component{
+  render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          What up bitches!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter basename={process.env.Public_URL}>
+      <Switch>
+        <Route exact path = '/mynearbyplaces' render={props => <Home {...props} />}/>
+        <Route path = "/login">
+          <Login />
+        </Route>
+        <Route path = '/results' render={props => <Results {...props}/>} />
+        <Route path = '/update' render={props => <Update {...props}/>} />
+      </Switch>
+    </BrowserRouter>
+
   );
+  }
 }
 
 export default App;
