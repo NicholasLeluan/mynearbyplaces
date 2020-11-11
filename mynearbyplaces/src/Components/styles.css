@@ -1,0 +1,70 @@
+.home {
+    background-color: aqua;
+    border: 1px solid black;
+    position: fixed;
+    height: 80%;
+    width: 75%;
+    margin-top: 1%;
+    left: 10%;
+    box-shadow: 10px 10px 10px grey;
+    overflow: scroll;
+}
+
+.visibleLocationsFooter{
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.displaySearch{
+    font-size: 10px;
+}
+input[type=text]{
+    width: 50%;
+}
+.searchDiv{
+    padding-top: 5px;
+}
+ .updateBar{
+     padding-top: 5%;
+ }
+.updateContainer{
+    background-color: aqua;
+    border: 1px solid black;
+    position: fixed;
+    height: 20%;
+    width: 75%;
+    margin-top: 20%;
+    left: 10%;
+    text-align: center;
+}
+
+.businessContainer{
+    background-color: aqua;
+    border: 1px solid black;
+    position: fixed;
+    height: 30%;
+    width: 75%;
+    margin-top: 20%;
+    left: 10%;
+    text-align: center;
+}
+
+.loggedButtons{
+    text-align: left;
+}
+.loggedLink { 
+    font-size: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    background: red;
+    text-align: left;
+}
+
+.userHeader{
+    text-align: right;
+
+}

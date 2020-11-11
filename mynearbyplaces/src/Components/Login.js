@@ -44,7 +44,7 @@ class Login extends React.Component{
             );
         }
         return (
-            <div className='loginContainer'>
+            <div className='updateContainer'>
             <div className='loginText'>
                 Enter Username and Password
             <form onSubmit={this.onSubmit}>

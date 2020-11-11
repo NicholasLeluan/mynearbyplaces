@@ -4,6 +4,8 @@ import {
     Redirect
 } from "react-router-dom";
 import locations from "./Locations";
+import Search from "./Search";
+import "./styles.css"
 
 
 
@@ -39,36 +41,7 @@ import locations from "./Locations";
           this.setState({queryKeyword: query});
       }
    
-    body = () => {
-        return(
-            <div>
-                <form onSubmit = {this.onSubmit}>
-                    Search by City:
-                    <input type = "text"
-                    value = {this.state.queryCity}
-                    name = 'queryCity'
-                    onChange = {this.searchByCity}
-                    ></input>
-                    Search by State:
-                    <input type = "text"
-                    value = {this.state.queryState}
-                    name = 'queryState'
-                    onChange={this.searchByState}>
-                    </input>
-                    Search by Keyword:
-                    <input type="text"
-                    value = {this.state.queryKeyword}
-                    name = 'queryKeyword'
-                    onChange={this.searchByKeyword}> 
-                    </input>
-                    <button type="submit">Search</button>
 
-                </form>
-            </div>
-        );
-
-
-    }
     render(){
         let user = '';
         const location = this.props.location
@@ -86,22 +59,30 @@ import locations from "./Locations";
                 <Redirect to={to}/>
             );
         }
+        const visible = locations.filter(x => x.visible === true)
         return(
-            <div>
+            <div class = "home">
                   {user.length > 0 ? 
-                    <div className='loggedinContainer'>
-                        Hello, {user}!
-                        Add A review is now available<br/>
-                        Add a Business is now available<br/>
-                        Content here should be the me as the home page, 
-                        just now can do these things above<br/>
-                        <Link to='/update'>Update/Add/Remove</Link>
+                    <div className='userHeader'>
+                        Hello, <b>{user}!</b><br/>
+                        <div class = "loggedButtons">
+                        <Link to='/addbusiness' class="loggedLink">Add A Business</Link><br/>
+                        <Link to='/delete' class="loggedLink">Delete Business</Link>
+                        </div>
                      </div>
-                    : <div>
+                    : 
+                    <div class ="userHeader">
                         <Link to='/login'>Login</Link>
                         </div>}
-                        <div>
-                            {this.body()}
+                        <div class = "searchDiv">
+                            <Search />
+                        </div>
+                        <div class = "visibleLocationsFooter">
+                            All Nerby Locations!
+                            {visible.map(x => 
+                                (<div>
+                                    <b>{x.name} : {x.type}</b>
+                                </div>))}
                         </div>
             </div>
         );
