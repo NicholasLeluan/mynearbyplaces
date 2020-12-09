@@ -3,7 +3,8 @@ import {
     Redirect
 } from 'react-router-dom';
 import locations from "./Locations";
-import server from "./Server";
+import serverOLD from "./Server";
+import server from '../ServerInterface/server';
 
 
 class AddReview extends React.Component{
@@ -26,12 +27,8 @@ class AddReview extends React.Component{
         this.setState({updated: true})
         console.log(this.state.newName)
         const x = this.state;
-        const businessObj = {
-            id: 0, visible: true, name: x.newName,address: x.newAddress, type: x.newType,
-            city: x.newCity, state: x.newState, keywords: x.newKeywords,
-            open: x.newOpen, close: x.newClose
-        }
-        server.addBusiness(businessObj);
+        //Order: name,type,address,city,state,rating,openX,closeX,keywords
+        server.addBusiness(x.newName,x.newType,x.newAddress,x.newCity,x.newState,5,x.newOpen,x.newClose,x.newKeywords);
         e.preventDefault();
     }
 

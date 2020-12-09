@@ -51,8 +51,24 @@ input[type=text]{
     text-align: center;
 }
 
+.thankReview {
+    background-color: rgb(107, 107, 107);
+    position: fixed;
+    height: 10%;
+    margin-top: 10%;
+    padding: 3%;
+    margin-left: 40%;
+}
+
 .loggedButtons{
     text-align: left;
+}
+
+.detailContainer{
+    background-color: rgb(141, 141, 141);
+    width: 50%;
+    margin: 15%;
+    padding: 2%;
 }
 .loggedLink { 
     font-size: 20px;

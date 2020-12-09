@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 import locations from "./Locations";
 import Search from "./Search";
-import "./styles.css"
+import "./styles.css";
+import server from '../ServerInterface/server';
 
 
 
@@ -17,8 +18,14 @@ import "./styles.css"
               queryState:"",
               queryKeyword: "",
               submitted: false,
-              loggedIn: false
+              loggedIn: false,
+              visible: [],
           }
+      }
+
+      componentDidMount() {
+          server.getAllLocations().then(x => this.setState({visible: x})).catch(e => console.log(e));
+          console.log("in home, visible:"+this.state.visible);
       }
 
       onSubmit = (event) => {
@@ -59,7 +66,13 @@ import "./styles.css"
                 <Redirect to={to}/>
             );
         }
-        const visible = locations.filter(x => x.visible === true)
+
+        if (this.state.visible.length == 0 ){
+            return(<div>
+                data is loading...
+            </div>)
+        }else{
+        console.log(this.state.visible);
         return(
             <div class = "home">
                   {user.length > 0 ? 
@@ -67,11 +80,11 @@ import "./styles.css"
                         Hello, <b>{user}!</b><br/>
                         <div class = "loggedButtons">
                         <Link to='/addbusiness' class="loggedLink">Add A Business</Link><br/>
-                        <Link to='/delete' class="loggedLink">Delete Business</Link>
                         </div>
                      </div>
                     : 
                     <div class ="userHeader">
+                        To add a business, login! <br/>
                         <Link to='/login'>Login</Link>
                         </div>}
                         <div class = "searchDiv">
@@ -79,7 +92,7 @@ import "./styles.css"
                         </div>
                         <div class = "visibleLocationsFooter">
                             All Nerby Locations!
-                            {visible.map(x => 
+                            {this.state.visible.map(x => 
                                 (<div>
                                     <b>{x.name} : {x.type}</b>
                                 </div>))}
@@ -87,5 +100,6 @@ import "./styles.css"
             </div>
         );
   }
+}
 }
 export default Home;

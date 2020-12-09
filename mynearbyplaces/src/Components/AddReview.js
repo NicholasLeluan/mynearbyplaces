@@ -1,9 +1,11 @@
 import React from 'react';
 import {
+    Link,
     Redirect
 } from 'react-router-dom';
 import locations from "./Locations";
-import server from "./Server";
+import serverOLD from "./Server";
+import server from '../ServerInterface/server';
 
 
 class AddReview extends React.Component{
@@ -17,8 +19,11 @@ class AddReview extends React.Component{
 
     onSubmit = (e) => {
         this.setState({updated: true})
+        //use this ID to add a new review to the reviews table in SQL
         const id = this.props.location.state.id
-        server.addAReview(id,this.state.newReview);
+        console.log(id,this.state.newReview);
+        //serverOLD.addAReview(id,this.state.newReview);
+        server.addReview(id,this.state.newReview);
         e.preventDefault();
     }
 
@@ -33,7 +38,12 @@ class AddReview extends React.Component{
             console.log(locations[id])
             const biz = locations[id]
             return (
-                <Redirect to="mynearbyplaces" />
+                <div class = 'thankReview'>Thank you for review! <br/>
+                <Link 
+                to={{
+                    pathname: '/mynearbyplaces'
+                    }}>Click here to go Home</Link>
+                </div>
             );
         }
         else{
@@ -43,7 +53,7 @@ class AddReview extends React.Component{
                     <form onSubmit={this.onSubmit}>
                         <input type="text"
                             value = {this.state.newreview}
-                            placeholder = "update name of business"
+                            placeholder = "Add a review!"
                             onChange={this.setNewReview}></input>
                         <button type="submit">Submit</button>
                     </form>

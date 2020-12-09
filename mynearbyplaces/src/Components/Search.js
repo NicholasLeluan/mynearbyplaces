@@ -6,8 +6,9 @@ import {
     Link,
     Redirect
   } from "react-router-dom";
-  import server from "./Server";
+  import serverOLD from "./Server";
   import locations from "./Locations";
+  import server from "../ServerInterface/server";
 
   class Search extends React.Component{
       constructor(props){
@@ -16,11 +17,16 @@ import {
               searchType: "",
               searchCity: "",
               searchKeyword: "",
-              searched: false
+              searched: false,
+              results: [],
           }
       }
       onSubmit = (e) => {
           this.setState({searched: true})
+          console.log(this.state.searchKeyword,this.state.searchType,this.state.searchKeyword);
+        server.searchTermLoc(this.state.searchType,
+          this.state.searchCity,
+          this.state.searchKeyword).then(x => this.setState({results: x})).catch(e => console.log(e));
           e.preventDefault();
       }
 
@@ -45,29 +51,23 @@ import {
 
       render(){
           if (this.state.searched){
-              console.log(locations)
-              const filtered = server.getResults(this.state.searchType,
-                this.state.searchCity,
-                this.state.searchKeyword);
-              if (filtered.length > 0){  
+              if (this.state.results.length > 0){  
+                  console.log(this.state.results);
               return (
                 <div>
-                <div>Your Search found <b>{filtered.length}</b> Result(s):</div>
+                <div>Your Search found <b>{this.state.results.length}</b> Result(s):</div>
                 <div><button onClick = {this.goBack}>Edit Search</button></div>
-                {filtered.map((entry) =>
+                {this.state.results.map(entry =>
                 (<div class="displaySearch">
                 <b>{entry.name}</b><br/>
                 {entry.city}, {entry.state}: {entry.address}<br/>
-                Rating: {entry.rating}<br/>
-                Reviews: {entry.reviews.map((review) =>
-                (<li key={entry.reviews}>{review}</li>))}
                 Opens: {entry.open}<br/>
                 Close: {entry.close}<br/>
                 <Link 
                 to={{
-                    pathname: '/update',
-                    state: {id: entry.id}
-                    }}>Update</Link><br/>
+                    pathname: '/placeDetails',
+                    state: {id: entry.id, name: entry.name}
+                    }}>Read what people have to say about {entry.name}!</Link><br/>
                 <Link 
                 to={{
                     pathname: '/addreview',

@@ -6,6 +6,7 @@ import Update from './Components/Update';
 import AddReview from './Components/AddReview';
 import AddBusiness from './Components/AddBusiness';
 import Delete from './Components/Delete'
+import Details from './Components/Details'
 import {
   BrowserRouter,
   Switch,
@@ -23,6 +24,7 @@ class App extends React.Component{
           <Login />
         </Route>
         <Route path = '/results' render={props => <Results {...props}/>} />
+        <Route path = '/placeDetails' render={props => <Details {...props}/>} />
         <Route path = '/update' render={props => <Update {...props}/>} />
         <Route path = '/addreview' render={props => <AddReview {...props}/>} />
         <Route path = '/addbusiness' render={props => <AddBusiness {...props}/>} />
